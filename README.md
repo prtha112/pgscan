@@ -29,3 +29,8 @@ pgdiff -b filebase.sql -h targetip -u usernamedb
 -b basefile for diff with remote database.
 --help for help.
 ```
+
+Location after run command > /home/{username}/pgdiff/log_diff
+
+## License
+[MIT](https://github.com/prtha112/pgdiff/blob/master/LICENSE)
