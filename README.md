@@ -1,6 +1,8 @@
 # pgdiff
 Program for check differnce schema for PostgreSQL.
 
+![alt text](https://sv1.picz.in.th/images/2020/05/17/qWwihl.md.jpg)
+
 ## Installation
 
 Requirement postgresql-client
