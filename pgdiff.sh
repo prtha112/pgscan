@@ -1,6 +1,5 @@
 #!/bin/bash
 
-echo $iam
 md5_server=$(curl https://raw.githubusercontent.com/prtha112/pgdiff/master/pgdiff | md5sum | awk '{print $1}' | tail -1)
 
 echo "---------------------------------------"
@@ -21,3 +20,4 @@ then
 fi
 
 chmod 755 /usr/local/bin/pgdiff
+echo "Install successfully."
