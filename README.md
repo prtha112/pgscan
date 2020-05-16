@@ -11,3 +11,14 @@ chmod 755 pgdiff.sh
 bash pgdiff.sh
 ```
 `If cannot install Try running with sudo`
+
+## Usage
+
+```bash
+pgdiff -b filebase.sql -h targetip -u usernamedb
+
+-h host target database.
+-u username login database.
+-b basefile for diff with remote database.
+--help for help.
+```
