@@ -1,0 +1,78 @@
+#!/bin/bash
+
+iam=$(whoami)
+this_path="/home/$iam/pgdiff"
+i=0
+
+if [ "$1" == "--help" ] ; then
+	helps="This is help of pgdiff V1.0.0\n
+-h host target database.\n
+-u username login database.\n
+-b basefile for diff with remote database.
+	"
+    	echo -e $helps
+    	exit 0
+fi
+
+while getopts h:u:f:b: flag
+do
+    	case "${flag}" in
+		h) hostname=${OPTARG};;
+		u) username=${OPTARG};;
+		b) base_file=${OPTARG};;
+    	esac
+done
+
+if [ -z $hostname ] || [ -z $username ] || [ -z $base_file ]
+then
+	echo "Has some error."
+	exit 
+fi
+
+read -s -p "Enter password :" password
+
+if [ -z $password ]
+then
+	echo "Please enter your password."
+	exit
+fi
+
+if [ -d "${this_path}" ]
+then
+        echo "Directory pgdiff exists."
+else
+        mkdir ${this_path}
+fi
+
+export PGPASSWORD="$password"
+psql -h $hostname -p 5432 -U $username -d postgres -c "SELECT datname FROM pg_database WHERE datistemplate = false AND datname != 'postgres';" > ${this_path}/temp_dbname
+
+count_line=$(cat temp_dbname | wc -l)
+count_line_tail=`expr "$count_line" - "2"`
+count_line_head=`expr "$count_line_tail" - "2"`
+
+for db in $(cat temp_dbname | tail -$count_line_tail | head -$count_line_head);
+do
+       	echo $db;
+
+	if [ -d "${this_path}/diff" ]
+        then
+                echo "Directory diff exists."
+        else
+                mkdir ${this_path}/diff
+        fi
+
+	pg_dump -Fp -s -O -h $hostname -U $username -d $db > ${this_path}/diff/${db}.sql
+
+	if [ -d "${this_path}/log_diff" ]
+	then
+       		echo "Directory log_diff exists." 
+	else
+       		mkdir ${this_path}/log_diff
+	fi
+
+	diff -u ${this_path}/${base_file} ${this_path}/diff/${db}.sql | tee ${this_path}/log_diff/${db}.sql
+done
+unset PGPASSWORD
+rm -r ${this_path}/diff/
+rm ${this_path}/temp_dbname
