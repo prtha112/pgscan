@@ -12,6 +12,13 @@ bash pgdiff.sh
 ```
 `If cannot install Try running with sudo`
 
+## Run without sudo
+To work at full capacity, Please do below.
+
+```bash
+chown YouUser:YouUser /usr/local/bin/pgdiff
+```
+
 ## Usage
 
 ```bash
