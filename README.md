@@ -1,14 +1,14 @@
-# pgdiff
+# pgscan
 Program for check differnce schema for PostgreSQL.
 
-![alt text](https://github.com/prtha112/pgdiff/blob/master/concept.jpg)
+![alt text](https://github.com/prtha112/pgscan/blob/master/concept.jpg)
 
 ## Installation
 
 Requirement postgresql-client
 
 ```bash
-wget https://raw.githubusercontent.com/prtha112/pgdiff/master/pgdiff.sh
+wget https://raw.githubusercontent.com/prtha112/pgscan/master/pgdiff.sh
 chmod 755 pgdiff.sh
 bash pgdiff.sh
 ```
@@ -35,4 +35,4 @@ pgdiff -b filebase.sql -h targetip -u usernamedb
 Location after run command > /home/{username}/pgdiff/log_diff
 
 ## License
-[MIT](https://github.com/prtha112/pgdiff/blob/master/LICENSE)
+[MIT](https://github.com/prtha112/pgscan/blob/master/LICENSE)
