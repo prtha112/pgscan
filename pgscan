@@ -4,6 +4,7 @@ iam=$(whoami)
 this_path="/home/$iam/pgscan"
 i=0
 
+
 if [ "$1" == "--help" ] ; then
 	helps="This is help of pgdiff V1.0.0\n
 -h host target database.\n
@@ -24,28 +25,33 @@ do
     	esac
 done
 
-if [ -z $hostname ] || [ -z $username ] || [ -z $base_file ] ; then
+if [ -z $hostname ] || [ -z $username ] || [ -z $base_file ] || [ -z $hostport ] ; then
 	echo "Has some error."
 	exit 
 fi
 
+if [ -z $hostport ] ; then
+	port=5432
+else
+	port=$hostport
+fi
+unset $hostport
+
 read -s -p "Enter password :" password
 
-if [ -z $password ]
-then
+if [ -z $password ] ; then
 	echo "Please enter your password."
 	exit
 fi
 
-if [ -d "${this_path}" ]
-then
+if [ -d "${this_path}" ] ; then
         echo "Directory pgscan exists."
 else
         mkdir ${this_path}
 fi
 
 export PGPASSWORD="$password"
-psql -h $hostname -p 5432 -U $username -d postgres -c "SELECT datname FROM pg_database WHERE datistemplate = false AND datname != 'postgres';" > ${this_path}/temp_dbname
+psql -h $hostname -p $port -U $username -d postgres -c "SELECT datname FROM pg_database WHERE datistemplate = false AND datname != 'postgres';" > ${this_path}/temp_dbname
 
 count_line=$(cat temp_dbname | wc -l)
 count_line_tail=`expr "$count_line" - "2"`
@@ -55,17 +61,15 @@ for db in $(cat temp_dbname | tail -$count_line_tail | head -$count_line_head);
 do
        	echo $db;
 
-	if [ -d "${this_path}/diff" ]
-        then
+	if [ -d "${this_path}/diff" ] ; then
                 echo "Directory diff exists."
         else
                 mkdir ${this_path}/diff
         fi
 
-	pg_dump -Fp -s -O -h $hostname -U $username -d $db > ${this_path}/diff/${db}.sql
+	pg_dump -Fp -s -O -h $hostname -p $port -U $username -d $db > ${this_path}/diff/${db}.sql
 
-	if [ -d "${this_path}/log_diff" ]
-	then
+	if [ -d "${this_path}/log_diff" ] ; then
        		echo "Directory log_diff exists." 
 	else
        		mkdir ${this_path}/log_diff
