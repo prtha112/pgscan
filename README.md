@@ -8,9 +8,9 @@ Program for check differnce schema for PostgreSQL.
 Requirement postgresql-client
 
 ```bash
-wget https://raw.githubusercontent.com/prtha112/pgscan/master/pgdiff.sh
-chmod 755 pgdiff.sh
-bash pgdiff.sh
+wget https://raw.githubusercontent.com/prtha112/pgscan/master/pgscan.sh
+chmod 755 pgscan.sh
+bash pgscan.sh
 ```
 `If cannot install Try running with sudo`
 
@@ -18,13 +18,13 @@ bash pgdiff.sh
 To work at full capacity, Please do below.
 
 ```bash
-chown YouUser:YouUser /usr/local/bin/pgdiff
+chown YouUser:YouUser /usr/local/bin/pgscan
 ```
 
 ## Usage
 
 ```bash
-pgdiff -b filebase.sql -h targetip -u usernamedb
+pgscan -b filebase.sql -h targetip -u usernamedb
 
 -h host target database.
 -u username login database.
@@ -32,7 +32,7 @@ pgdiff -b filebase.sql -h targetip -u usernamedb
 --help for help.
 ```
 
-Location after run command > /home/{username}/pgdiff/log_diff
+Location after run command > /home/{username}/pgscan/log_diff
 
 ## License
 [MIT](https://github.com/prtha112/pgscan/blob/master/LICENSE)
