@@ -75,7 +75,7 @@ do
        		mkdir ${this_path}/log_diff
 	fi
 
-	diff -u ${this_path}/${base_file} ${this_path}/diff/${db}.sql | tee ${this_path}/log_diff/${db}.sql
+	diff -u ${base_file} ${this_path}/diff/${db}.sql | tee ${this_path}/log_diff/${db}.sql
 done
 unset PGPASSWORD
 rm -r ${this_path}/diff/
