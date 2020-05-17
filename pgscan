@@ -35,7 +35,7 @@ if [ -z $hostport ] ; then
 else
 	port=$hostport
 fi
-unset $hostport
+unset -f $hostport
 
 read -s -p "Enter password :" password
 
@@ -57,7 +57,7 @@ count_line=$(cat temp_dbname | wc -l)
 count_line_tail=`expr "$count_line" - "2"`
 count_line_head=`expr "$count_line_tail" - "2"`
 
-for db in $(cat temp_dbname | tail -$count_line_tail | head -$count_line_head);
+for db in $(cat ${this_path}/temp_dbname | tail -$count_line_tail | head -$count_line_head);
 do
        	echo $db;
 
