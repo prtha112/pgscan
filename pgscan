@@ -14,17 +14,17 @@ if [ "$1" == "--help" ] ; then
     	exit 0
 fi
 
-while getopts h:u:f:b: flag
+while getopts h:u:b:p: flag
 do
     	case "${flag}" in
 		h) hostname=${OPTARG};;
 		u) username=${OPTARG};;
 		b) base_file=${OPTARG};;
+		p) hostport=${OPTARG};;
     	esac
 done
 
-if [ -z $hostname ] || [ -z $username ] || [ -z $base_file ]
-then
+if [ -z $hostname ] || [ -z $username ] || [ -z $base_file ] ; then
 	echo "Has some error."
 	exit 
 fi
