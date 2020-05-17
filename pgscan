@@ -53,7 +53,7 @@ fi
 export PGPASSWORD="$password"
 psql -h $hostname -p $port -U $username -d postgres -c "SELECT datname FROM pg_database WHERE datistemplate = false AND datname != 'postgres';" > ${this_path}/temp_dbname
 
-count_line=$(cat temp_dbname | wc -l)
+count_line=$(cat ${this_path}/temp_dbname | wc -l)
 count_line_tail=`expr "$count_line" - "2"`
 count_line_head=`expr "$count_line_tail" - "2"`
 
