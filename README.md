@@ -8,9 +8,7 @@ Program for check differnce schema for PostgreSQL.
 Requirement postgresql-client
 
 ```bash
-wget https://raw.githubusercontent.com/prtha112/pgscan/master/pgscan.sh
-chmod 755 pgscan.sh
-bash pgscan.sh
+wget -O - https://raw.githubusercontent.com/prtha112/pgscan/master/pgscan.sh | bash
 ```
 `If cannot install Try running with sudo`
 
